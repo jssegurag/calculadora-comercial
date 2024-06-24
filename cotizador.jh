@@ -1,0 +1,275 @@
+//AuthenticationEvent para sincronizar usuarios y roles en jhipster desde keycloak
+//Enviar correo de notificación. -> Bonitasoft. 
+//flujo de aprobaciòn, Opcion de BPM para este proyecto. -> Bonitasoft
+entity User {
+    name String required, // Nombre del usuario
+    email String required unique, // Correo electrónico del usuario, único y requerido
+    password String required, // Contraseña del usuario
+    active Boolean required, // Indica si el usuario está activo
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity UserRole {
+    name String required unique, // Nombre del rol de usuario, único y requerido
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity Permission {
+    name String required unique, // Nombre del permiso
+    description String, // Descripción del permiso
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity Position {
+    name String required unique, // Nombre del cargo, único y requerido
+    active Boolean required, // Indica si el cargo está activo
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity Resource {
+    position Position required, // Cargo del recurso (relación con Position)
+    salary BigDecimal required, // Salario del recurso
+    hourlyRate BigDecimal, // Valor por hora
+    active Boolean required, // Indica si el recurso está activo
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity Budget {
+    name String required, // Nombre del presupuesto
+    description TextBlob, // Descripción del presupuesto
+    startDate LocalDate, // Fecha de inicio del presupuesto
+    endDate LocalDate, // Fecha de finalización del presupuesto
+    estimatedDurationDays Integer, // Tiempo estimado del presupuesto en días
+    durationMonths Integer, // Duración del presupuesto en meses
+    monthlyHours BigDecimal, // Horas mensuales del presupuesto
+    plannedHours BigDecimal, // Horas planeadas para el presupuesto
+    resourceCount Integer, // Cantidad de recursos del presupuesto
+    income BigDecimal, // Ingreso del presupuesto
+    otherTaxes BigDecimal, // Campo para incorporar otros impuestos de algún país 
+    descriptionOtherTaxes String, // Descripción de otros impuestos aplicados
+    withholdingTaxes BigDecimal, // Retenciones aplicables al presupuesto
+    modAndCifCosts BigDecimal, // Costos de MOD y CIF
+    grossProfit BigDecimal, // Utilidad bruta del presupuesto
+    grossProfitPercentage BigDecimal, // Porcentaje de utilidad bruta
+    grossProfitRule BigDecimal, // Regla de utilidad bruta
+    absorbedFixedCosts BigDecimal, // Gastos fijos absorbidos
+    otherExpenses BigDecimal, // Otros gastos del presupuesto
+    profitBeforeTax BigDecimal, // Utilidad antes de impuestos
+    estimatedTaxes BigDecimal, // Impuestos estimados
+    estimatedNetProfit BigDecimal, // Utilidad neta estimada
+    netMarginPercentage BigDecimal, // Porcentaje de margen neto
+    netMarginRule BigDecimal, // Regla de margen neto
+    commissionToReceive BigDecimal, // Comisión a recibir por el comercial
+    country Country required, // Asociación con la entidad Country
+    assignedTo User, // Relación con User para indicar a quién está asignado el presupuesto
+    needsApproval Boolean, // Indica si el presupuesto necesita aprobación
+    approvedBy User, // Relación con User para indicar quién aprobó el presupuesto
+    approvalDecision String, // Dictamen de aprobación
+    approvalDate Instant, // Fecha de aprobación
+    approvalTime Instant, // Hora de aprobación
+    approvalComments String, // Comentarios de la aprobación
+    approvalStatus String, // Estado de aprobación del presupuesto
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity BudgetTemplate {
+    name String required unique, // Nombre de la plantilla de presupuesto
+    description TextBlob, // Descripción de la plantilla
+    startDate LocalDate, // Fecha de inicio del presupuesto
+    endDate LocalDate, // Fecha de finalización del presupuesto
+    estimatedDurationDays Integer, // Tiempo estimado del presupuesto en días
+    durationMonths Integer, // Duración del presupuesto en meses
+    monthlyHours BigDecimal, // Horas mensuales del presupuesto
+    plannedHours BigDecimal, // Horas planeadas para el presupuesto
+    resourceCount Integer, // Cantidad de recursos del presupuesto
+    income BigDecimal, // Ingreso del presupuesto
+    otherTaxes BigDecimal, // Campo para incorporar otros impuestos de algún país 
+    descriptionOtherTaxes String, // Descripción de otros impuestos aplicados
+    withholdingTaxes BigDecimal, // Retenciones aplicables al presupuesto
+    modAndCifCosts BigDecimal, // Costos de MOD y CIF
+    grossProfit BigDecimal, // Utilidad bruta del presupuesto
+    grossProfitPercentage BigDecimal, // Porcentaje de utilidad bruta
+    grossProfitRule BigDecimal, // Regla de utilidad bruta
+    absorbedFixedCosts BigDecimal, // Gastos fijos absorbidos
+    otherExpenses BigDecimal, // Otros gastos del presupuesto
+    profitBeforeTax BigDecimal, // Utilidad antes de impuestos
+    estimatedTaxes BigDecimal, // Impuestos estimados
+    estimatedNetProfit BigDecimal, // Utilidad neta estimada
+    netMarginPercentage BigDecimal, // Porcentaje de margen neto
+    netMarginRule BigDecimal, // Regla de margen neto
+    commissionToReceive BigDecimal, // Comisión a recibir por el comercial
+    country Country required, // Asociación con la entidad Country
+    active Boolean required, // Indica si la plantilla está activa
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity ResourceAllocation {
+    assignedHours BigDecimal required, // Horas asignadas al recurso
+    totalCost BigDecimal, // Costo total del recurso
+    units BigDecimal, // Unidades del recurso
+    capacity BigDecimal, // Capacidad del recurso
+    plannedHours BigDecimal, // Horas planeadas para el recurso
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity FinancialParameter {
+    name String required, // Nombre del parámetro financiero
+    value BigDecimal required, // Valor del parámetro financiero
+    active Boolean required, // Indica si el parámetro financiero está activo
+    mandatory Boolean required, // Indica si el parámetro financiero es obligatorio
+    type FinancialParameterType required, // Tipo del parámetro financiero
+    country Country required, // Asociación con la entidad Country
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity FinancialParameterType {
+    name String required unique, // Nombre del tipo de parámetro financiero
+    active Boolean required, // Indica si el tipo de parámetro financiero está activo
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity DroolsRuleFile {
+    fileName String required, // Nombre del archivo de reglas
+    fileContent TextBlob required, // Contenido del archivo de reglas
+    description String, // Descripción del archivo de reglas
+    active Boolean required, // Indica si el archivo de reglas está activo
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity Country {
+    name String required unique, // Nombre del país
+    active Boolean required, // Indica si el país está activo
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+entity BudgetComment {
+    content TextBlob required, // Contenido del comentario
+    createdBy String, // Usuario que creó el comentario
+    createdDate Instant, // Fecha de creación del comentario
+    lastModifiedBy String, // Usuario que modificó el comentario por última vez
+    lastModifiedDate Instant // Fecha de última modificación del comentario
+}
+
+entity RuleAssignment {
+    rule DroolsRuleFile required, // Relación con DroolsRuleFile
+    entityName String required, // Nombre de la entidad asociada a la regla
+    entityId Long required, // ID de la entidad asociada a la regla
+    createdBy String, // Usuario que creó el registro
+    createdDate Instant, // Fecha de creación del registro
+    lastModifiedBy String, // Usuario que modificó el registro por última vez
+    lastModifiedDate Instant // Fecha de última modificación del registro
+}
+
+relationship OneToMany {
+    User to Budget { owner } // Un usuario puede tener muchos presupuestos (propietario del presupuesto)
+}
+
+relationship ManyToMany {
+    User to Budget { authorized } // Muchos usuarios pueden estar autorizados a ver/modificar muchos presupuestos
+    UserRole to Budget { roleAuthorized } // Muchos roles pueden estar autorizados a ver/modificar muchos presupuestos
+}
+
+relationship OneToMany {
+    Budget to ResourceAllocation { budget } // Un presupuesto puede tener muchas asignaciones de recursos
+    Resource to ResourceAllocation { resource } // Un recurso puede tener muchas asignaciones de presupuestos
+}
+
+relationship ManyToOne {
+    ResourceAllocation to Budget { budget } // Una asignación de recurso pertenece a un presupuesto
+    ResourceAllocation to Resource { resource } // Una asignación de recurso pertenece a un recurso
+}
+
+relationship OneToMany {
+    BudgetTemplate to ResourceAllocation { allocations } // Una plantilla de presupuesto puede tener muchas asignaciones de recursos preconfigurados
+}
+
+relationship ManyToOne {
+    ResourceAllocation to BudgetTemplate { template } // Una asignación de recurso pertenece a una plantilla de presupuesto
+}
+
+relationship OneToMany {
+    User to FinancialParameter { administrator } // Un usuario puede administrar muchos parámetros financieros
+}
+
+relationship ManyToMany {
+    UserRole to FinancialParameter { roleAuthorized } // Muchos roles pueden estar autorizados a ver/modificar muchos parámetros financieros
+}
+
+relationship ManyToOne {
+    FinancialParameter to FinancialParameterType { type } // Un parámetro financiero tiene un tipo
+}
+
+relationship ManyToOne {
+    FinancialParameter to Country { country } // Un parámetro financiero está asociado con un país
+}
+
+relationship ManyToMany {
+    User to UserRole { roles } // Un usuario puede tener muchos roles y un rol puede ser asignado a muchos usuarios
+    UserRole to Permission { permissions } // Muchos roles pueden tener muchos permisos
+}
+
+relationship ManyToOne {
+    Budget to Country { country } // Un presupuesto está asociado con un país
+}
+
+relationship ManyToOne {
+    BudgetTemplate to Country { country } // Una plantilla de presupuesto está asociada con un país
+}
+
+relationship OneToMany {
+    Budget to BudgetComment { comments } // Un presupuesto puede tener muchos comentarios
+}
+
+relationship ManyToOne {
+    BudgetComment to Budget { budget } // Un comentario pertenece a un presupuesto
+}
+
+relationship OneToMany {
+    DroolsRuleFile to RuleAssignment { assignments } // Un archivo de reglas puede tener muchas asignaciones
+}
+
+relationship ManyToOne {
+    RuleAssignment to DroolsRuleFile { rule } // Una asignación pertenece a un archivo de reglas
+}
+
+// Configuraciones adicionales
+service User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with serviceClass
+dto User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with mapstruct
+paginate User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with pagination
+filter User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment
