@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (userRole()) {
+      <div>
+        <h2 data-cy="userRoleDetailsHeading"><span jhiTranslate="quotizoApp.userRole.detail.title">User Role</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ userRole()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.name">Name</span></dt>
+          <dd>
+            <span>{{ userRole()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ userRole()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ userRole()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ userRole()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ userRole()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.permission">Permission</span></dt>
+          <dd>
+            @for (permission of userRole()!.permissions; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/permission', permission.id, 'view']">{{ permission?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.budget">Budget</span></dt>
+          <dd>
+            @for (budget of userRole()!.budgets; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/budget', budget.id, 'view']">{{ budget?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.financialParameter">Financial Parameter</span></dt>
+          <dd>
+            @for (financialParameter of userRole()!.financialParameters; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/financial-parameter', financialParameter.id, 'view']">{{ financialParameter?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.userRole.users">Users</span></dt>
+          <dd>
+            @for (users of userRole()!.users; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/users', users.id, 'view']">{{ users?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/user-role', userRole()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (permission()) {
+      <div>
+        <h2 data-cy="permissionDetailsHeading"><span jhiTranslate="quotizoApp.permission.detail.title">Permission</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ permission()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.name">Name</span></dt>
+          <dd>
+            <span>{{ permission()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.description">Description</span></dt>
+          <dd>
+            <span>{{ permission()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ permission()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ permission()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ permission()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ permission()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.permission.permissions">Permissions</span></dt>
+          <dd>
+            @for (permissions of permission()!.permissions; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/user-role', permissions.id, 'view']">{{ permissions?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/permission', permission()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

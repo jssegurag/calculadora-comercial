@@ -1,0 +1,45 @@
+{
+  "annotations": {
+    "changelogDate": "20240624144405"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "BudgetComment",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "budget",
+      "otherEntityRelationshipName": "budgetComment",
+      "relationshipName": "budget",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

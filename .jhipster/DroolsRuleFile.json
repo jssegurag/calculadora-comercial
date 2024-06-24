@@ -1,0 +1,59 @@
+{
+  "annotations": {
+    "changelogDate": "20240624144205"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "fileName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fileContent",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "DroolsRuleFile",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "ruleAssignment",
+      "otherEntityRelationshipName": "droolsRuleFile",
+      "relationshipName": "ruleAssignment",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

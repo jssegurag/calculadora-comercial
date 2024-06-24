@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "oauth2",
+    "baseName": "quotizo",
+    "buildTool": "maven",
+    "cacheProvider": "ehcache",
+    "clientFramework": "angular",
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "devServerPort": 4200,
+    "enableHibernateCache": false,
+    "enableSwaggerCodegen": true,
+    "enableTranslation": true,
+    "entities": [
+      "Users",
+      "UserRole",
+      "Permission",
+      "Position",
+      "Resource",
+      "Budget",
+      "BudgetTemplate",
+      "ResourceAllocation",
+      "FinancialParameter",
+      "FinancialParameterType",
+      "DroolsRuleFile",
+      "Country",
+      "BudgetComment",
+      "RuleAssignment"
+    ],
+    "jhipsterVersion": "8.5.0",
+    "languages": ["en", "es"],
+    "lastLiquibaseTimestamp": 1719240305000,
+    "nativeLanguage": "en",
+    "packageFolder": "com/trycore/quotizo",
+    "packageName": "com.trycore.quotizo",
+    "prodDatabaseType": "postgresql",
+    "skipUserManagement": true,
+    "testFrameworks": ["cypress"]
+  }
+}

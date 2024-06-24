@@ -1,0 +1,30 @@
+{
+  "quotizoApp": {
+    "financialParameterType": {
+      "home": {
+        "title": "Financial Parameter Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Financial Parameter Type",
+        "createOrEditLabel": "Create or edit a Financial Parameter Type",
+        "notFound": "No Financial Parameter Types found"
+      },
+      "created": "A new Financial Parameter Type is created with identifier {{ param }}",
+      "updated": "A Financial Parameter Type is updated with identifier {{ param }}",
+      "deleted": "A Financial Parameter Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Financial Parameter Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Financial Parameter Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "active": "Active",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "financialParameter": "Financial Parameter"
+    }
+  }
+}

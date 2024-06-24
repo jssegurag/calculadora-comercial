@@ -1,0 +1,581 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-budget-heading" data-cy="BudgetCreateUpdateHeading" jhiTranslate="quotizoApp.budget.home.createOrEditLabel">
+        Create or edit a Budget
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="quotizoApp.budget.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="quotizoApp.budget.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="quotizoApp.budget.description">Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate" jhiTranslate="quotizoApp.budget.startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate" jhiTranslate="quotizoApp.budget.endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_estimatedDurationDays" jhiTranslate="quotizoApp.budget.estimatedDurationDays"
+            >Estimated Duration Days</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="estimatedDurationDays"
+            id="field_estimatedDurationDays"
+            data-cy="estimatedDurationDays"
+            formControlName="estimatedDurationDays"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_durationMonths" jhiTranslate="quotizoApp.budget.durationMonths">Duration Months</label>
+          <input
+            type="number"
+            class="form-control"
+            name="durationMonths"
+            id="field_durationMonths"
+            data-cy="durationMonths"
+            formControlName="durationMonths"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_monthlyHours" jhiTranslate="quotizoApp.budget.monthlyHours">Monthly Hours</label>
+          <input
+            type="number"
+            class="form-control"
+            name="monthlyHours"
+            id="field_monthlyHours"
+            data-cy="monthlyHours"
+            formControlName="monthlyHours"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_plannedHours" jhiTranslate="quotizoApp.budget.plannedHours">Planned Hours</label>
+          <input
+            type="number"
+            class="form-control"
+            name="plannedHours"
+            id="field_plannedHours"
+            data-cy="plannedHours"
+            formControlName="plannedHours"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_resourceCount" jhiTranslate="quotizoApp.budget.resourceCount">Resource Count</label>
+          <input
+            type="number"
+            class="form-control"
+            name="resourceCount"
+            id="field_resourceCount"
+            data-cy="resourceCount"
+            formControlName="resourceCount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_income" jhiTranslate="quotizoApp.budget.income">Income</label>
+          <input type="number" class="form-control" name="income" id="field_income" data-cy="income" formControlName="income" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_otherTaxes" jhiTranslate="quotizoApp.budget.otherTaxes">Other Taxes</label>
+          <input
+            type="number"
+            class="form-control"
+            name="otherTaxes"
+            id="field_otherTaxes"
+            data-cy="otherTaxes"
+            formControlName="otherTaxes"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_descriptionOtherTaxes" jhiTranslate="quotizoApp.budget.descriptionOtherTaxes"
+            >Description Other Taxes</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="descriptionOtherTaxes"
+            id="field_descriptionOtherTaxes"
+            data-cy="descriptionOtherTaxes"
+            formControlName="descriptionOtherTaxes"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_withholdingTaxes" jhiTranslate="quotizoApp.budget.withholdingTaxes">Withholding Taxes</label>
+          <input
+            type="number"
+            class="form-control"
+            name="withholdingTaxes"
+            id="field_withholdingTaxes"
+            data-cy="withholdingTaxes"
+            formControlName="withholdingTaxes"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_modAndCifCosts" jhiTranslate="quotizoApp.budget.modAndCifCosts">Mod And Cif Costs</label>
+          <input
+            type="number"
+            class="form-control"
+            name="modAndCifCosts"
+            id="field_modAndCifCosts"
+            data-cy="modAndCifCosts"
+            formControlName="modAndCifCosts"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_grossProfit" jhiTranslate="quotizoApp.budget.grossProfit">Gross Profit</label>
+          <input
+            type="number"
+            class="form-control"
+            name="grossProfit"
+            id="field_grossProfit"
+            data-cy="grossProfit"
+            formControlName="grossProfit"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_grossProfitPercentage" jhiTranslate="quotizoApp.budget.grossProfitPercentage"
+            >Gross Profit Percentage</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="grossProfitPercentage"
+            id="field_grossProfitPercentage"
+            data-cy="grossProfitPercentage"
+            formControlName="grossProfitPercentage"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_grossProfitRule" jhiTranslate="quotizoApp.budget.grossProfitRule">Gross Profit Rule</label>
+          <input
+            type="number"
+            class="form-control"
+            name="grossProfitRule"
+            id="field_grossProfitRule"
+            data-cy="grossProfitRule"
+            formControlName="grossProfitRule"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_absorbedFixedCosts" jhiTranslate="quotizoApp.budget.absorbedFixedCosts"
+            >Absorbed Fixed Costs</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="absorbedFixedCosts"
+            id="field_absorbedFixedCosts"
+            data-cy="absorbedFixedCosts"
+            formControlName="absorbedFixedCosts"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_otherExpenses" jhiTranslate="quotizoApp.budget.otherExpenses">Other Expenses</label>
+          <input
+            type="number"
+            class="form-control"
+            name="otherExpenses"
+            id="field_otherExpenses"
+            data-cy="otherExpenses"
+            formControlName="otherExpenses"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_profitBeforeTax" jhiTranslate="quotizoApp.budget.profitBeforeTax">Profit Before Tax</label>
+          <input
+            type="number"
+            class="form-control"
+            name="profitBeforeTax"
+            id="field_profitBeforeTax"
+            data-cy="profitBeforeTax"
+            formControlName="profitBeforeTax"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_estimatedTaxes" jhiTranslate="quotizoApp.budget.estimatedTaxes">Estimated Taxes</label>
+          <input
+            type="number"
+            class="form-control"
+            name="estimatedTaxes"
+            id="field_estimatedTaxes"
+            data-cy="estimatedTaxes"
+            formControlName="estimatedTaxes"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_estimatedNetProfit" jhiTranslate="quotizoApp.budget.estimatedNetProfit"
+            >Estimated Net Profit</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="estimatedNetProfit"
+            id="field_estimatedNetProfit"
+            data-cy="estimatedNetProfit"
+            formControlName="estimatedNetProfit"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_netMarginPercentage" jhiTranslate="quotizoApp.budget.netMarginPercentage"
+            >Net Margin Percentage</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="netMarginPercentage"
+            id="field_netMarginPercentage"
+            data-cy="netMarginPercentage"
+            formControlName="netMarginPercentage"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_netMarginRule" jhiTranslate="quotizoApp.budget.netMarginRule">Net Margin Rule</label>
+          <input
+            type="number"
+            class="form-control"
+            name="netMarginRule"
+            id="field_netMarginRule"
+            data-cy="netMarginRule"
+            formControlName="netMarginRule"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commissionToReceive" jhiTranslate="quotizoApp.budget.commissionToReceive"
+            >Commission To Receive</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="commissionToReceive"
+            id="field_commissionToReceive"
+            data-cy="commissionToReceive"
+            formControlName="commissionToReceive"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_needsApproval" jhiTranslate="quotizoApp.budget.needsApproval">Needs Approval</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="needsApproval"
+            id="field_needsApproval"
+            data-cy="needsApproval"
+            formControlName="needsApproval"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_approvalDecision" jhiTranslate="quotizoApp.budget.approvalDecision">Approval Decision</label>
+          <input
+            type="text"
+            class="form-control"
+            name="approvalDecision"
+            id="field_approvalDecision"
+            data-cy="approvalDecision"
+            formControlName="approvalDecision"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_approvalDate" jhiTranslate="quotizoApp.budget.approvalDate">Approval Date</label>
+          <div class="d-flex">
+            <input
+              id="field_approvalDate"
+              data-cy="approvalDate"
+              type="datetime-local"
+              class="form-control"
+              name="approvalDate"
+              formControlName="approvalDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_approvalTime" jhiTranslate="quotizoApp.budget.approvalTime">Approval Time</label>
+          <div class="d-flex">
+            <input
+              id="field_approvalTime"
+              data-cy="approvalTime"
+              type="datetime-local"
+              class="form-control"
+              name="approvalTime"
+              formControlName="approvalTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_approvalComments" jhiTranslate="quotizoApp.budget.approvalComments">Approval Comments</label>
+          <input
+            type="text"
+            class="form-control"
+            name="approvalComments"
+            id="field_approvalComments"
+            data-cy="approvalComments"
+            formControlName="approvalComments"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_approvalStatus" jhiTranslate="quotizoApp.budget.approvalStatus">Approval Status</label>
+          <input
+            type="text"
+            class="form-control"
+            name="approvalStatus"
+            id="field_approvalStatus"
+            data-cy="approvalStatus"
+            formControlName="approvalStatus"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="quotizoApp.budget.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdDate" jhiTranslate="quotizoApp.budget.createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedBy" jhiTranslate="quotizoApp.budget.lastModifiedBy">Last Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedDate" jhiTranslate="quotizoApp.budget.lastModifiedDate"
+            >Last Modified Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_contry" jhiTranslate="quotizoApp.budget.contry">Contry</label>
+          <select
+            class="form-control"
+            id="field_contry"
+            data-cy="contry"
+            name="contry"
+            formControlName="contry"
+            [compareWith]="compareCountry"
+          >
+            <option [ngValue]="null"></option>
+            @for (countryOption of countriesSharedCollection; track $index) {
+              <option [ngValue]="countryOption">{{ countryOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_userAssignedTo" jhiTranslate="quotizoApp.budget.userAssignedTo">User Assigned To</label>
+          <select
+            class="form-control"
+            id="field_userAssignedTo"
+            data-cy="userAssignedTo"
+            name="userAssignedTo"
+            formControlName="userAssignedTo"
+            [compareWith]="compareUsers"
+          >
+            <option [ngValue]="null"></option>
+            @for (usersOption of usersSharedCollection; track $index) {
+              <option [ngValue]="usersOption">{{ usersOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_userApprovedBy" jhiTranslate="quotizoApp.budget.userApprovedBy">User Approved By</label>
+          <select
+            class="form-control"
+            id="field_userApprovedBy"
+            data-cy="userApprovedBy"
+            name="userApprovedBy"
+            formControlName="userApprovedBy"
+            [compareWith]="compareUsers"
+          >
+            <option [ngValue]="null"></option>
+            @for (usersOption of usersSharedCollection; track $index) {
+              <option [ngValue]="usersOption">{{ usersOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_userOwner" jhiTranslate="quotizoApp.budget.userOwner">User Owner</label>
+          <select
+            class="form-control"
+            id="field_userOwner"
+            data-cy="userOwner"
+            name="userOwner"
+            formControlName="userOwner"
+            [compareWith]="compareUsers"
+          >
+            <option [ngValue]="null"></option>
+            @for (usersOption of usersSharedCollection; track $index) {
+              <option [ngValue]="usersOption">{{ usersOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_authorizeds" jhiTranslate="quotizoApp.budget.authorized">Authorized</label>
+          <select
+            class="form-control"
+            id="field_authorizeds"
+            data-cy="authorized"
+            multiple
+            name="authorizeds"
+            formControlName="authorizeds"
+            [compareWith]="compareUsers"
+          >
+            @for (usersOption of usersSharedCollection; track $index) {
+              <option [ngValue]="usersOption">{{ usersOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_roleAuthorizeds" jhiTranslate="quotizoApp.budget.roleAuthorized">Role Authorized</label>
+          <select
+            class="form-control"
+            id="field_roleAuthorizeds"
+            data-cy="roleAuthorized"
+            multiple
+            name="roleAuthorizeds"
+            formControlName="roleAuthorizeds"
+            [compareWith]="compareUserRole"
+          >
+            @for (userRoleOption of userRolesSharedCollection; track $index) {
+              <option [ngValue]="userRoleOption">{{ userRoleOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+{
+  "annotations": {
+    "changelogDate": "20240624144005"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mandatory",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "FinancialParameter",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "financialParameterType",
+      "otherEntityRelationshipName": "financialParameter",
+      "relationshipName": "financialParameterType",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "financialParameter",
+      "relationshipName": "country",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "users",
+      "otherEntityRelationshipName": "financialParameter",
+      "relationshipName": "administrator",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "userRole",
+      "otherEntityRelationshipName": "financialParameter",
+      "relationshipName": "roleAuthorized",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

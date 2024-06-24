@@ -1,0 +1,32 @@
+{
+  "quotizoApp": {
+    "droolsRuleFile": {
+      "home": {
+        "title": "Drools Rule Files",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Drools Rule File",
+        "createOrEditLabel": "Crear o editar Drools Rule File",
+        "notFound": "Ningún Drools Rule Files encontrado"
+      },
+      "created": "Un nuevo Drools Rule File ha sido creado con el identificador {{ param }}",
+      "updated": "Un Drools Rule File ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Drools Rule File ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Drools Rule File {{ id }}?"
+      },
+      "detail": {
+        "title": "Drools Rule File"
+      },
+      "id": "ID",
+      "fileName": "File Name",
+      "fileContent": "File Content",
+      "description": "Description",
+      "active": "Active",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "ruleAssignment": "Rule Assignment"
+    }
+  }
+}

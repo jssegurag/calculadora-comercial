@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity UserRole.
+    -->
+    <changeSet id="20240624143305-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_role_id"
+                                 baseTableName="rel_user_role__permission"
+                                 constraintName="fk_rel_user_role__permission__user_role_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_role"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="permission_id"
+                                 baseTableName="rel_user_role__permission"
+                                 constraintName="fk_rel_user_role__permission__permission_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="permission"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_role_id"
+                                 baseTableName="rel_user_role__budget"
+                                 constraintName="fk_rel_user_role__budget__user_role_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_role"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="budget_id"
+                                 baseTableName="rel_user_role__budget"
+                                 constraintName="fk_rel_user_role__budget__budget_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="budget"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_role_id"
+                                 baseTableName="rel_user_role__financial_parameter"
+                                 constraintName="fk_rel_user_role__financial_parameter__user_role_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_role"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="financial_parameter_id"
+                                 baseTableName="rel_user_role__financial_parameter"
+                                 constraintName="fk_rel_user_role__financial_parameter__financial_parameter_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="financial_parameter"
+                                 />
+    </changeSet>
+</databaseChangeLog>

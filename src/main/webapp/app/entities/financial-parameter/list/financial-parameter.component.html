@@ -1,0 +1,212 @@
+<div>
+  <h2 id="page-heading" data-cy="FinancialParameterHeading">
+    <span jhiTranslate="quotizoApp.financialParameter.home.title">Financial Parameters</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="quotizoApp.financialParameter.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-financial-parameter"
+        [routerLink]="['/financial-parameter/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="quotizoApp.financialParameter.home.createLabel">Create a new Financial Parameter</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (financialParameters?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="quotizoApp.financialParameter.home.notFound">No Financial Parameters found</span>
+    </div>
+  }
+
+  @if (financialParameters && financialParameters.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="value">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.value">Value</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="active">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.active">Active</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="mandatory">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.mandatory">Mandatory</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.createdDate">Created Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedBy">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.lastModifiedBy">Last Modified By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.lastModifiedDate">Last Modified Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="financialParameterType.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.financialParameterType">Financial Parameter Type</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="country.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.country">Country</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="administrator.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.financialParameter.administrator">Administrator</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (financialParameter of financialParameters; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/financial-parameter', financialParameter.id, 'view']">{{ financialParameter.id }}</a>
+              </td>
+              <td>{{ financialParameter.name }}</td>
+              <td>{{ financialParameter.value }}</td>
+              <td>{{ financialParameter.active }}</td>
+              <td>{{ financialParameter.mandatory }}</td>
+              <td>{{ financialParameter.createdBy }}</td>
+              <td>{{ financialParameter.createdDate | formatMediumDatetime }}</td>
+              <td>{{ financialParameter.lastModifiedBy }}</td>
+              <td>{{ financialParameter.lastModifiedDate | formatMediumDatetime }}</td>
+              <td>
+                @if (financialParameter.financialParameterType) {
+                  <div>
+                    <a [routerLink]="['/financial-parameter-type', financialParameter.financialParameterType.id, 'view']">{{
+                      financialParameter.financialParameterType.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (financialParameter.country) {
+                  <div>
+                    <a [routerLink]="['/country', financialParameter.country.id, 'view']">{{ financialParameter.country.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (financialParameter.administrator) {
+                  <div>
+                    <a [routerLink]="['/users', financialParameter.administrator.id, 'view']">{{ financialParameter.administrator.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/financial-parameter', financialParameter.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/financial-parameter', financialParameter.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(financialParameter)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (financialParameters && financialParameters.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

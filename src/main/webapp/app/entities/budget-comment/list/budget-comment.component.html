@@ -1,0 +1,152 @@
+<div>
+  <h2 id="page-heading" data-cy="BudgetCommentHeading">
+    <span jhiTranslate="quotizoApp.budgetComment.home.title">Budget Comments</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="quotizoApp.budgetComment.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-budget-comment"
+        [routerLink]="['/budget-comment/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="quotizoApp.budgetComment.home.createLabel">Create a new Budget Comment</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (budgetComments?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="quotizoApp.budgetComment.home.notFound">No Budget Comments found</span>
+    </div>
+  }
+
+  @if (budgetComments && budgetComments.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="content">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budgetComment.content">Content</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budgetComment.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budgetComment.createdDate">Created Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedBy">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budgetComment.lastModifiedBy">Last Modified By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budgetComment.lastModifiedDate">Last Modified Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="budget.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budgetComment.budget">Budget</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (budgetComment of budgetComments; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/budget-comment', budgetComment.id, 'view']">{{ budgetComment.id }}</a>
+              </td>
+              <td>{{ budgetComment.content }}</td>
+              <td>{{ budgetComment.createdBy }}</td>
+              <td>{{ budgetComment.createdDate | formatMediumDatetime }}</td>
+              <td>{{ budgetComment.lastModifiedBy }}</td>
+              <td>{{ budgetComment.lastModifiedDate | formatMediumDatetime }}</td>
+              <td>
+                @if (budgetComment.budget) {
+                  <div>
+                    <a [routerLink]="['/budget', budgetComment.budget.id, 'view']">{{ budgetComment.budget.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/budget-comment', budgetComment.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/budget-comment', budgetComment.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(budgetComment)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (budgetComments && budgetComments.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

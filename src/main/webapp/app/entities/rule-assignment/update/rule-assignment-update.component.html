@@ -1,0 +1,147 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-rule-assignment-heading"
+        data-cy="RuleAssignmentCreateUpdateHeading"
+        jhiTranslate="quotizoApp.ruleAssignment.home.createOrEditLabel"
+      >
+        Create or edit a Rule Assignment
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="quotizoApp.ruleAssignment.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_entityName" jhiTranslate="quotizoApp.ruleAssignment.entityName">Entity Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="entityName"
+            id="field_entityName"
+            data-cy="entityName"
+            formControlName="entityName"
+          />
+          @if (editForm.get('entityName')!.invalid && (editForm.get('entityName')!.dirty || editForm.get('entityName')!.touched)) {
+            <div>
+              @if (editForm.get('entityName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_entityId" jhiTranslate="quotizoApp.ruleAssignment.entityId">Entity Id</label>
+          <input type="number" class="form-control" name="entityId" id="field_entityId" data-cy="entityId" formControlName="entityId" />
+          @if (editForm.get('entityId')!.invalid && (editForm.get('entityId')!.dirty || editForm.get('entityId')!.touched)) {
+            <div>
+              @if (editForm.get('entityId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('entityId')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="quotizoApp.ruleAssignment.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdDate" jhiTranslate="quotizoApp.ruleAssignment.createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedBy" jhiTranslate="quotizoApp.ruleAssignment.lastModifiedBy"
+            >Last Modified By</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedDate" jhiTranslate="quotizoApp.ruleAssignment.lastModifiedDate"
+            >Last Modified Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_droolsRuleFile" jhiTranslate="quotizoApp.ruleAssignment.droolsRuleFile"
+            >Drools Rule File</label
+          >
+          <select
+            class="form-control"
+            id="field_droolsRuleFile"
+            data-cy="droolsRuleFile"
+            name="droolsRuleFile"
+            formControlName="droolsRuleFile"
+            [compareWith]="compareDroolsRuleFile"
+          >
+            <option [ngValue]="null"></option>
+            @for (droolsRuleFileOption of droolsRuleFilesSharedCollection; track $index) {
+              <option [ngValue]="droolsRuleFileOption">{{ droolsRuleFileOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

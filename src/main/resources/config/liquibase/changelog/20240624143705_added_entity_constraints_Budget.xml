@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Budget.
+    -->
+    <changeSet id="20240624143705-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="contry_id"
+                                 baseTableName="budget"
+                                 constraintName="fk_budget__contry_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_assigned_to_id"
+                                 baseTableName="budget"
+                                 constraintName="fk_budget__user_assigned_to_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_approved_by_id"
+                                 baseTableName="budget"
+                                 constraintName="fk_budget__user_approved_by_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_owner_id"
+                                 baseTableName="budget"
+                                 constraintName="fk_budget__user_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"
+                                 />
+    </changeSet>
+</databaseChangeLog>

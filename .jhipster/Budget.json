@@ -1,0 +1,213 @@
+{
+  "annotations": {
+    "changelogDate": "20240624143705"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estimatedDurationDays",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "durationMonths",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "monthlyHours",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "plannedHours",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "resourceCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "income",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "otherTaxes",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "descriptionOtherTaxes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "withholdingTaxes",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "modAndCifCosts",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "grossProfit",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "grossProfitPercentage",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "grossProfitRule",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "absorbedFixedCosts",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "otherExpenses",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "profitBeforeTax",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "estimatedTaxes",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "estimatedNetProfit",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "netMarginPercentage",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "netMarginRule",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "commissionToReceive",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "needsApproval",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "approvalDecision",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "approvalDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "approvalTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "approvalComments",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "approvalStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Budget",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "resourceAllocation",
+      "otherEntityRelationshipName": "budget",
+      "relationshipName": "resourceAllocation",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "budgetComment",
+      "otherEntityRelationshipName": "budget",
+      "relationshipName": "budgetComment",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "budget",
+      "relationshipName": "contry",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "users",
+      "otherEntityRelationshipName": "assignedTo",
+      "relationshipName": "userAssignedTo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "users",
+      "otherEntityRelationshipName": "approvedBy",
+      "relationshipName": "userApprovedBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "users",
+      "relationshipName": "userOwner",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "users",
+      "otherEntityRelationshipName": "budgetAuthorized",
+      "relationshipName": "authorized",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "userRole",
+      "otherEntityRelationshipName": "budget",
+      "relationshipName": "roleAuthorized",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

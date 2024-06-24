@@ -1,0 +1,165 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-users-heading" data-cy="UsersCreateUpdateHeading" jhiTranslate="quotizoApp.users.home.createOrEditLabel">
+        Create or edit a Users
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="quotizoApp.users.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="quotizoApp.users.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_email" jhiTranslate="quotizoApp.users.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          @if (editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)) {
+            <div>
+              @if (editForm.get('email')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_password" jhiTranslate="quotizoApp.users.password">Password</label>
+          <input type="text" class="form-control" name="password" id="field_password" data-cy="password" formControlName="password" />
+          @if (editForm.get('password')!.invalid && (editForm.get('password')!.dirty || editForm.get('password')!.touched)) {
+            <div>
+              @if (editForm.get('password')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_active" jhiTranslate="quotizoApp.users.active">Active</label>
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+          @if (editForm.get('active')!.invalid && (editForm.get('active')!.dirty || editForm.get('active')!.touched)) {
+            <div>
+              @if (editForm.get('active')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="quotizoApp.users.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdDate" jhiTranslate="quotizoApp.users.createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedBy" jhiTranslate="quotizoApp.users.lastModifiedBy">Last Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedDate" jhiTranslate="quotizoApp.users.lastModifiedDate">Last Modified Date</label>
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_userRoles" jhiTranslate="quotizoApp.users.userRole">User Role</label>
+          <select
+            class="form-control"
+            id="field_userRoles"
+            data-cy="userRole"
+            multiple
+            name="userRoles"
+            formControlName="userRoles"
+            [compareWith]="compareUserRole"
+          >
+            @for (userRoleOption of userRolesSharedCollection; track $index) {
+              <option [ngValue]="userRoleOption">{{ userRoleOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_budgetAuthorizeds" jhiTranslate="quotizoApp.users.budgetAuthorized">Budget Authorized</label>
+          <select
+            class="form-control"
+            id="field_budgetAuthorizeds"
+            data-cy="budgetAuthorized"
+            multiple
+            name="budgetAuthorizeds"
+            formControlName="budgetAuthorizeds"
+            [compareWith]="compareBudget"
+          >
+            @for (budgetOption of budgetsSharedCollection; track $index) {
+              <option [ngValue]="budgetOption">{{ budgetOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

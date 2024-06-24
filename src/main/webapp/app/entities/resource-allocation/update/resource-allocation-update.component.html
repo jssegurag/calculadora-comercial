@@ -1,0 +1,198 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-resource-allocation-heading"
+        data-cy="ResourceAllocationCreateUpdateHeading"
+        jhiTranslate="quotizoApp.resourceAllocation.home.createOrEditLabel"
+      >
+        Create or edit a Resource Allocation
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="quotizoApp.resourceAllocation.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_assignedHours" jhiTranslate="quotizoApp.resourceAllocation.assignedHours"
+            >Assigned Hours</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="assignedHours"
+            id="field_assignedHours"
+            data-cy="assignedHours"
+            formControlName="assignedHours"
+          />
+          @if (editForm.get('assignedHours')!.invalid && (editForm.get('assignedHours')!.dirty || editForm.get('assignedHours')!.touched)) {
+            <div>
+              @if (editForm.get('assignedHours')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('assignedHours')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_totalCost" jhiTranslate="quotizoApp.resourceAllocation.totalCost">Total Cost</label>
+          <input type="number" class="form-control" name="totalCost" id="field_totalCost" data-cy="totalCost" formControlName="totalCost" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_units" jhiTranslate="quotizoApp.resourceAllocation.units">Units</label>
+          <input type="number" class="form-control" name="units" id="field_units" data-cy="units" formControlName="units" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_capacity" jhiTranslate="quotizoApp.resourceAllocation.capacity">Capacity</label>
+          <input type="number" class="form-control" name="capacity" id="field_capacity" data-cy="capacity" formControlName="capacity" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_plannedHours" jhiTranslate="quotizoApp.resourceAllocation.plannedHours">Planned Hours</label>
+          <input
+            type="number"
+            class="form-control"
+            name="plannedHours"
+            id="field_plannedHours"
+            data-cy="plannedHours"
+            formControlName="plannedHours"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="quotizoApp.resourceAllocation.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdDate" jhiTranslate="quotizoApp.resourceAllocation.createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedBy" jhiTranslate="quotizoApp.resourceAllocation.lastModifiedBy"
+            >Last Modified By</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedDate" jhiTranslate="quotizoApp.resourceAllocation.lastModifiedDate"
+            >Last Modified Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_budget" jhiTranslate="quotizoApp.resourceAllocation.budget">Budget</label>
+          <select
+            class="form-control"
+            id="field_budget"
+            data-cy="budget"
+            name="budget"
+            formControlName="budget"
+            [compareWith]="compareBudget"
+          >
+            <option [ngValue]="null"></option>
+            @for (budgetOption of budgetsSharedCollection; track $index) {
+              <option [ngValue]="budgetOption">{{ budgetOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_resource" jhiTranslate="quotizoApp.resourceAllocation.resource">Resource</label>
+          <select
+            class="form-control"
+            id="field_resource"
+            data-cy="resource"
+            name="resource"
+            formControlName="resource"
+            [compareWith]="compareResource"
+          >
+            <option [ngValue]="null"></option>
+            @for (resourceOption of resourcesSharedCollection; track $index) {
+              <option [ngValue]="resourceOption">{{ resourceOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_budgetTemplate" jhiTranslate="quotizoApp.resourceAllocation.budgetTemplate"
+            >Budget Template</label
+          >
+          <select
+            class="form-control"
+            id="field_budgetTemplate"
+            data-cy="budgetTemplate"
+            name="budgetTemplate"
+            formControlName="budgetTemplate"
+            [compareWith]="compareBudgetTemplate"
+          >
+            <option [ngValue]="null"></option>
+            @for (budgetTemplateOption of budgetTemplatesSharedCollection; track $index) {
+              <option [ngValue]="budgetTemplateOption">{{ budgetTemplateOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

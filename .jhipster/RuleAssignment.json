@@ -1,0 +1,48 @@
+{
+  "annotations": {
+    "changelogDate": "20240624144505"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "entityName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "entityId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "RuleAssignment",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "droolsRuleFile",
+      "relationshipName": "droolsRuleFile",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

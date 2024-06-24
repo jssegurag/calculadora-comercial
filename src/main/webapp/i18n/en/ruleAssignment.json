@@ -1,0 +1,30 @@
+{
+  "quotizoApp": {
+    "ruleAssignment": {
+      "home": {
+        "title": "Rule Assignments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Rule Assignment",
+        "createOrEditLabel": "Create or edit a Rule Assignment",
+        "notFound": "No Rule Assignments found"
+      },
+      "created": "A new Rule Assignment is created with identifier {{ param }}",
+      "updated": "A Rule Assignment is updated with identifier {{ param }}",
+      "deleted": "A Rule Assignment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Rule Assignment {{ id }}?"
+      },
+      "detail": {
+        "title": "Rule Assignment"
+      },
+      "id": "ID",
+      "entityName": "Entity Name",
+      "entityId": "Entity Id",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "droolsRuleFile": "Drools Rule File"
+    }
+  }
+}

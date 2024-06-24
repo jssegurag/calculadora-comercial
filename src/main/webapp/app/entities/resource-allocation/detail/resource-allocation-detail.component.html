@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (resourceAllocation()) {
+      <div>
+        <h2 data-cy="resourceAllocationDetailsHeading">
+          <span jhiTranslate="quotizoApp.resourceAllocation.detail.title">Resource Allocation</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.assignedHours">Assigned Hours</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.assignedHours }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.totalCost">Total Cost</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.totalCost }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.units">Units</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.units }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.capacity">Capacity</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.capacity }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.plannedHours">Planned Hours</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.plannedHours }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ resourceAllocation()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.budget">Budget</span></dt>
+          <dd>
+            @if (resourceAllocation()!.budget) {
+              <div>
+                <a [routerLink]="['/budget', resourceAllocation()!.budget?.id, 'view']">{{ resourceAllocation()!.budget?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.resource">Resource</span></dt>
+          <dd>
+            @if (resourceAllocation()!.resource) {
+              <div>
+                <a [routerLink]="['/resource', resourceAllocation()!.resource?.id, 'view']">{{ resourceAllocation()!.resource?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.resourceAllocation.budgetTemplate">Budget Template</span></dt>
+          <dd>
+            @if (resourceAllocation()!.budgetTemplate) {
+              <div>
+                <a [routerLink]="['/budget-template', resourceAllocation()!.budgetTemplate?.id, 'view']">{{
+                  resourceAllocation()!.budgetTemplate?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/resource-allocation', resourceAllocation()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

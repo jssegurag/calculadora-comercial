@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity FinancialParameter.
+    -->
+    <changeSet id="20240624144005-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="financial_parameter_type_id"
+                                 baseTableName="financial_parameter"
+                                 constraintName="fk_financial_parameter__financial_parameter_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="financial_parameter_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="financial_parameter"
+                                 constraintName="fk_financial_parameter__country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="administrator_id"
+                                 baseTableName="financial_parameter"
+                                 constraintName="fk_financial_parameter__administrator_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"
+                                 />
+    </changeSet>
+</databaseChangeLog>

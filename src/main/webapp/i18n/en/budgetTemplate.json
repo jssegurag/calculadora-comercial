@@ -1,0 +1,55 @@
+{
+  "quotizoApp": {
+    "budgetTemplate": {
+      "home": {
+        "title": "Budget Templates",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Budget Template",
+        "createOrEditLabel": "Create or edit a Budget Template",
+        "notFound": "No Budget Templates found"
+      },
+      "created": "A new Budget Template is created with identifier {{ param }}",
+      "updated": "A Budget Template is updated with identifier {{ param }}",
+      "deleted": "A Budget Template is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Budget Template {{ id }}?"
+      },
+      "detail": {
+        "title": "Budget Template"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "estimatedDurationDays": "Estimated Duration Days",
+      "durationMonths": "Duration Months",
+      "monthlyHours": "Monthly Hours",
+      "plannedHours": "Planned Hours",
+      "resourceCount": "Resource Count",
+      "income": "Income",
+      "otherTaxes": "Other Taxes",
+      "descriptionOtherTaxes": "Description Other Taxes",
+      "withholdingTaxes": "Withholding Taxes",
+      "modAndCifCosts": "Mod And Cif Costs",
+      "grossProfit": "Gross Profit",
+      "grossProfitPercentage": "Gross Profit Percentage",
+      "grossProfitRule": "Gross Profit Rule",
+      "absorbedFixedCosts": "Absorbed Fixed Costs",
+      "otherExpenses": "Other Expenses",
+      "profitBeforeTax": "Profit Before Tax",
+      "estimatedTaxes": "Estimated Taxes",
+      "estimatedNetProfit": "Estimated Net Profit",
+      "netMarginPercentage": "Net Margin Percentage",
+      "netMarginRule": "Net Margin Rule",
+      "commissionToReceive": "Commission To Receive",
+      "active": "Active",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "resourceAllocation": "Resource Allocation",
+      "country": "Country"
+    }
+  }
+}

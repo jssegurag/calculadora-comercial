@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (users()) {
+      <div>
+        <h2 data-cy="usersDetailsHeading"><span jhiTranslate="quotizoApp.users.detail.title">Users</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ users()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.name">Name</span></dt>
+          <dd>
+            <span>{{ users()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.email">Email</span></dt>
+          <dd>
+            <span>{{ users()!.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.password">Password</span></dt>
+          <dd>
+            <span>{{ users()!.password }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.active">Active</span></dt>
+          <dd>
+            <span>{{ users()!.active }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ users()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ users()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ users()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ users()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.userRole">User Role</span></dt>
+          <dd>
+            @for (userRole of users()!.userRoles; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/user-role', userRole.id, 'view']">{{ userRole?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.users.budgetAuthorized">Budget Authorized</span></dt>
+          <dd>
+            @for (budgetAuthorized of users()!.budgetAuthorizeds; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/budget', budgetAuthorized.id, 'view']">{{ budgetAuthorized?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/users', users()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

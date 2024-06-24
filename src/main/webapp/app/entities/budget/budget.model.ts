@@ -1,0 +1,51 @@
+import dayjs from 'dayjs/esm';
+import { ICountry } from 'app/entities/country/country.model';
+import { IUsers } from 'app/entities/users/users.model';
+import { IUserRole } from 'app/entities/user-role/user-role.model';
+
+export interface IBudget {
+  id: number;
+  name?: string | null;
+  description?: string | null;
+  startDate?: dayjs.Dayjs | null;
+  endDate?: dayjs.Dayjs | null;
+  estimatedDurationDays?: number | null;
+  durationMonths?: number | null;
+  monthlyHours?: number | null;
+  plannedHours?: number | null;
+  resourceCount?: number | null;
+  income?: number | null;
+  otherTaxes?: number | null;
+  descriptionOtherTaxes?: string | null;
+  withholdingTaxes?: number | null;
+  modAndCifCosts?: number | null;
+  grossProfit?: number | null;
+  grossProfitPercentage?: number | null;
+  grossProfitRule?: number | null;
+  absorbedFixedCosts?: number | null;
+  otherExpenses?: number | null;
+  profitBeforeTax?: number | null;
+  estimatedTaxes?: number | null;
+  estimatedNetProfit?: number | null;
+  netMarginPercentage?: number | null;
+  netMarginRule?: number | null;
+  commissionToReceive?: number | null;
+  needsApproval?: boolean | null;
+  approvalDecision?: string | null;
+  approvalDate?: dayjs.Dayjs | null;
+  approvalTime?: dayjs.Dayjs | null;
+  approvalComments?: string | null;
+  approvalStatus?: string | null;
+  createdBy?: string | null;
+  createdDate?: dayjs.Dayjs | null;
+  lastModifiedBy?: string | null;
+  lastModifiedDate?: dayjs.Dayjs | null;
+  contry?: Pick<ICountry, 'id'> | null;
+  userAssignedTo?: Pick<IUsers, 'id'> | null;
+  userApprovedBy?: Pick<IUsers, 'id'> | null;
+  userOwner?: Pick<IUsers, 'id'> | null;
+  authorizeds?: Pick<IUsers, 'id'>[] | null;
+  roleAuthorizeds?: Pick<IUserRole, 'id'>[] | null;
+}
+
+export type NewBudget = Omit<IBudget, 'id'> & { id: null };

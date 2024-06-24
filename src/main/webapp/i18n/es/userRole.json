@@ -1,0 +1,32 @@
+{
+  "quotizoApp": {
+    "userRole": {
+      "home": {
+        "title": "User Roles",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo User Role",
+        "createOrEditLabel": "Crear o editar User Role",
+        "notFound": "Ningún User Roles encontrado"
+      },
+      "created": "Un nuevo User Role ha sido creado con el identificador {{ param }}",
+      "updated": "Un User Role ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un User Role ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar User Role {{ id }}?"
+      },
+      "detail": {
+        "title": "User Role"
+      },
+      "id": "ID",
+      "name": "Name",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "permission": "Permission",
+      "budget": "Budget",
+      "financialParameter": "Financial Parameter",
+      "users": "Users"
+    }
+  }
+}

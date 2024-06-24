@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (ruleAssignment()) {
+      <div>
+        <h2 data-cy="ruleAssignmentDetailsHeading"><span jhiTranslate="quotizoApp.ruleAssignment.detail.title">Rule Assignment</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.entityName">Entity Name</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.entityName }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.entityId">Entity Id</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.entityId }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ ruleAssignment()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.ruleAssignment.droolsRuleFile">Drools Rule File</span></dt>
+          <dd>
+            @if (ruleAssignment()!.droolsRuleFile) {
+              <div>
+                <a [routerLink]="['/drools-rule-file', ruleAssignment()!.droolsRuleFile?.id, 'view']">{{
+                  ruleAssignment()!.droolsRuleFile?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/rule-assignment', ruleAssignment()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

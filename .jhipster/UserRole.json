@@ -1,0 +1,65 @@
+{
+  "annotations": {
+    "changelogDate": "20240624143305"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "UserRole",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "permission",
+      "otherEntityRelationshipName": "permissions",
+      "relationshipName": "permission",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "budget",
+      "otherEntityRelationshipName": "roleAuthorized",
+      "relationshipName": "budget",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "financialParameter",
+      "otherEntityRelationshipName": "roleAuthorized",
+      "relationshipName": "financialParameter",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "users",
+      "otherEntityRelationshipName": "userRole",
+      "relationshipName": "users",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

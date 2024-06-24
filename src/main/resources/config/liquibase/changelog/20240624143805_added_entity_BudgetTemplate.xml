@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity BudgetTemplate.
+    -->
+    <changeSet id="20240624143805-1" author="jhipster">
+        <createTable tableName="budget_template">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_budget_template__name" />
+            </column>
+            <column name="description" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="estimated_duration_days" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="duration_months" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="monthly_hours" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="planned_hours" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="resource_count" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="income" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="other_taxes" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="description_other_taxes" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="withholding_taxes" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="mod_and_cif_costs" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="gross_profit" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="gross_profit_percentage" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="gross_profit_rule" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="absorbed_fixed_costs" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="other_expenses" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="profit_before_tax" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="estimated_taxes" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="estimated_net_profit" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="net_margin_percentage" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="net_margin_rule" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="commission_to_receive" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="last_modified_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="last_modified_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="country_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="budget_template" columnName="created_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="budget_template" columnName="last_modified_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20240624143805-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/budget_template.csv"
+                  separator=";"
+                  tableName="budget_template"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="description" type="clob"/>
+            <column name="start_date" type="date"/>
+            <column name="end_date" type="date"/>
+            <column name="estimated_duration_days" type="numeric"/>
+            <column name="duration_months" type="numeric"/>
+            <column name="monthly_hours" type="numeric"/>
+            <column name="planned_hours" type="numeric"/>
+            <column name="resource_count" type="numeric"/>
+            <column name="income" type="numeric"/>
+            <column name="other_taxes" type="numeric"/>
+            <column name="description_other_taxes" type="string"/>
+            <column name="withholding_taxes" type="numeric"/>
+            <column name="mod_and_cif_costs" type="numeric"/>
+            <column name="gross_profit" type="numeric"/>
+            <column name="gross_profit_percentage" type="numeric"/>
+            <column name="gross_profit_rule" type="numeric"/>
+            <column name="absorbed_fixed_costs" type="numeric"/>
+            <column name="other_expenses" type="numeric"/>
+            <column name="profit_before_tax" type="numeric"/>
+            <column name="estimated_taxes" type="numeric"/>
+            <column name="estimated_net_profit" type="numeric"/>
+            <column name="net_margin_percentage" type="numeric"/>
+            <column name="net_margin_rule" type="numeric"/>
+            <column name="commission_to_receive" type="numeric"/>
+            <column name="active" type="boolean"/>
+            <column name="created_by" type="string"/>
+            <column name="created_date" type="date"/>
+            <column name="last_modified_by" type="string"/>
+            <column name="last_modified_date" type="date"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

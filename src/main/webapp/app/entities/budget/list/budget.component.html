@@ -1,0 +1,431 @@
+<div>
+  <h2 id="page-heading" data-cy="BudgetHeading">
+    <span jhiTranslate="quotizoApp.budget.home.title">Budgets</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="quotizoApp.budget.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-budget"
+        [routerLink]="['/budget/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="quotizoApp.budget.home.createLabel">Create a new Budget</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (budgets?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="quotizoApp.budget.home.notFound">No Budgets found</span>
+    </div>
+  }
+
+  @if (budgets && budgets.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.description">Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="startDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.startDate">Start Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.endDate">End Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estimatedDurationDays">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.estimatedDurationDays">Estimated Duration Days</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="durationMonths">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.durationMonths">Duration Months</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="monthlyHours">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.monthlyHours">Monthly Hours</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="plannedHours">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.plannedHours">Planned Hours</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="resourceCount">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.resourceCount">Resource Count</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="income">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.income">Income</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="otherTaxes">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.otherTaxes">Other Taxes</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="descriptionOtherTaxes">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.descriptionOtherTaxes">Description Other Taxes</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="withholdingTaxes">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.withholdingTaxes">Withholding Taxes</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="modAndCifCosts">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.modAndCifCosts">Mod And Cif Costs</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="grossProfit">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.grossProfit">Gross Profit</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="grossProfitPercentage">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.grossProfitPercentage">Gross Profit Percentage</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="grossProfitRule">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.grossProfitRule">Gross Profit Rule</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="absorbedFixedCosts">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.absorbedFixedCosts">Absorbed Fixed Costs</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="otherExpenses">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.otherExpenses">Other Expenses</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="profitBeforeTax">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.profitBeforeTax">Profit Before Tax</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estimatedTaxes">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.estimatedTaxes">Estimated Taxes</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estimatedNetProfit">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.estimatedNetProfit">Estimated Net Profit</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="netMarginPercentage">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.netMarginPercentage">Net Margin Percentage</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="netMarginRule">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.netMarginRule">Net Margin Rule</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="commissionToReceive">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.commissionToReceive">Commission To Receive</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="needsApproval">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.needsApproval">Needs Approval</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="approvalDecision">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.approvalDecision">Approval Decision</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="approvalDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.approvalDate">Approval Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="approvalTime">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.approvalTime">Approval Time</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="approvalComments">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.approvalComments">Approval Comments</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="approvalStatus">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.approvalStatus">Approval Status</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdBy">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.createdBy">Created By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.createdDate">Created Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedBy">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.lastModifiedBy">Last Modified By</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedDate">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.lastModifiedDate">Last Modified Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contry.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.contry">Contry</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="userAssignedTo.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.userAssignedTo">User Assigned To</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="userApprovedBy.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.userApprovedBy">User Approved By</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="userOwner.id">
+              <div class="d-flex">
+                <span jhiTranslate="quotizoApp.budget.userOwner">User Owner</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (budget of budgets; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/budget', budget.id, 'view']">{{ budget.id }}</a>
+              </td>
+              <td>{{ budget.name }}</td>
+              <td>{{ budget.description }}</td>
+              <td>{{ budget.startDate | formatMediumDate }}</td>
+              <td>{{ budget.endDate | formatMediumDate }}</td>
+              <td>{{ budget.estimatedDurationDays }}</td>
+              <td>{{ budget.durationMonths }}</td>
+              <td>{{ budget.monthlyHours }}</td>
+              <td>{{ budget.plannedHours }}</td>
+              <td>{{ budget.resourceCount }}</td>
+              <td>{{ budget.income }}</td>
+              <td>{{ budget.otherTaxes }}</td>
+              <td>{{ budget.descriptionOtherTaxes }}</td>
+              <td>{{ budget.withholdingTaxes }}</td>
+              <td>{{ budget.modAndCifCosts }}</td>
+              <td>{{ budget.grossProfit }}</td>
+              <td>{{ budget.grossProfitPercentage }}</td>
+              <td>{{ budget.grossProfitRule }}</td>
+              <td>{{ budget.absorbedFixedCosts }}</td>
+              <td>{{ budget.otherExpenses }}</td>
+              <td>{{ budget.profitBeforeTax }}</td>
+              <td>{{ budget.estimatedTaxes }}</td>
+              <td>{{ budget.estimatedNetProfit }}</td>
+              <td>{{ budget.netMarginPercentage }}</td>
+              <td>{{ budget.netMarginRule }}</td>
+              <td>{{ budget.commissionToReceive }}</td>
+              <td>{{ budget.needsApproval }}</td>
+              <td>{{ budget.approvalDecision }}</td>
+              <td>{{ budget.approvalDate | formatMediumDatetime }}</td>
+              <td>{{ budget.approvalTime | formatMediumDatetime }}</td>
+              <td>{{ budget.approvalComments }}</td>
+              <td>{{ budget.approvalStatus }}</td>
+              <td>{{ budget.createdBy }}</td>
+              <td>{{ budget.createdDate | formatMediumDatetime }}</td>
+              <td>{{ budget.lastModifiedBy }}</td>
+              <td>{{ budget.lastModifiedDate | formatMediumDatetime }}</td>
+              <td>
+                @if (budget.contry) {
+                  <div>
+                    <a [routerLink]="['/country', budget.contry.id, 'view']">{{ budget.contry.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (budget.userAssignedTo) {
+                  <div>
+                    <a [routerLink]="['/users', budget.userAssignedTo.id, 'view']">{{ budget.userAssignedTo.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (budget.userApprovedBy) {
+                  <div>
+                    <a [routerLink]="['/users', budget.userApprovedBy.id, 'view']">{{ budget.userApprovedBy.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (budget.userOwner) {
+                  <div>
+                    <a [routerLink]="['/users', budget.userOwner.id, 'view']">{{ budget.userOwner.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/budget', budget.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/budget', budget.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(budget)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (budgets && budgets.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

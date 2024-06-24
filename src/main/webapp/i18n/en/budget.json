@@ -1,0 +1,66 @@
+{
+  "quotizoApp": {
+    "budget": {
+      "home": {
+        "title": "Budgets",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Budget",
+        "createOrEditLabel": "Create or edit a Budget",
+        "notFound": "No Budgets found"
+      },
+      "created": "A new Budget is created with identifier {{ param }}",
+      "updated": "A Budget is updated with identifier {{ param }}",
+      "deleted": "A Budget is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Budget {{ id }}?"
+      },
+      "detail": {
+        "title": "Budget"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "estimatedDurationDays": "Estimated Duration Days",
+      "durationMonths": "Duration Months",
+      "monthlyHours": "Monthly Hours",
+      "plannedHours": "Planned Hours",
+      "resourceCount": "Resource Count",
+      "income": "Income",
+      "otherTaxes": "Other Taxes",
+      "descriptionOtherTaxes": "Description Other Taxes",
+      "withholdingTaxes": "Withholding Taxes",
+      "modAndCifCosts": "Mod And Cif Costs",
+      "grossProfit": "Gross Profit",
+      "grossProfitPercentage": "Gross Profit Percentage",
+      "grossProfitRule": "Gross Profit Rule",
+      "absorbedFixedCosts": "Absorbed Fixed Costs",
+      "otherExpenses": "Other Expenses",
+      "profitBeforeTax": "Profit Before Tax",
+      "estimatedTaxes": "Estimated Taxes",
+      "estimatedNetProfit": "Estimated Net Profit",
+      "netMarginPercentage": "Net Margin Percentage",
+      "netMarginRule": "Net Margin Rule",
+      "commissionToReceive": "Commission To Receive",
+      "needsApproval": "Needs Approval",
+      "approvalDecision": "Approval Decision",
+      "approvalDate": "Approval Date",
+      "approvalTime": "Approval Time",
+      "approvalComments": "Approval Comments",
+      "approvalStatus": "Approval Status",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "resourceAllocation": "Resource Allocation",
+      "budgetComment": "Budget Comment",
+      "contry": "Contry",
+      "userAssignedTo": "User Assigned To",
+      "userApprovedBy": "User Approved By",
+      "userOwner": "User Owner",
+      "authorized": "Authorized",
+      "roleAuthorized": "Role Authorized"
+    }
+  }
+}

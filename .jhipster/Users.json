@@ -1,0 +1,94 @@
+{
+  "annotations": {
+    "changelogDate": "20240624143205"
+  },
+  "applications": ["quotizo"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Users",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "budget",
+      "otherEntityRelationshipName": "userOwner",
+      "relationshipName": "budget",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "financialParameter",
+      "otherEntityRelationshipName": "administrator",
+      "relationshipName": "financialParameter",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "userRole",
+      "otherEntityRelationshipName": "users",
+      "relationshipName": "userRole",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "budget",
+      "otherEntityRelationshipName": "authorized",
+      "relationshipName": "budgetAuthorized",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "budget",
+      "otherEntityRelationshipName": "userAssignedTo",
+      "relationshipName": "assignedTo",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "budget",
+      "otherEntityRelationshipName": "userApprovedBy",
+      "relationshipName": "approvedBy",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

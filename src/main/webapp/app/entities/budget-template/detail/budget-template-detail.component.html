@@ -1,0 +1,158 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (budgetTemplate()) {
+      <div>
+        <h2 data-cy="budgetTemplateDetailsHeading"><span jhiTranslate="quotizoApp.budgetTemplate.detail.title">Budget Template</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.name">Name</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.description">Description</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.startDate">Start Date</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.endDate">End Date</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.estimatedDurationDays">Estimated Duration Days</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.estimatedDurationDays }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.durationMonths">Duration Months</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.durationMonths }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.monthlyHours">Monthly Hours</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.monthlyHours }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.plannedHours">Planned Hours</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.plannedHours }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.resourceCount">Resource Count</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.resourceCount }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.income">Income</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.income }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.otherTaxes">Other Taxes</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.otherTaxes }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.descriptionOtherTaxes">Description Other Taxes</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.descriptionOtherTaxes }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.withholdingTaxes">Withholding Taxes</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.withholdingTaxes }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.modAndCifCosts">Mod And Cif Costs</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.modAndCifCosts }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.grossProfit">Gross Profit</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.grossProfit }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.grossProfitPercentage">Gross Profit Percentage</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.grossProfitPercentage }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.grossProfitRule">Gross Profit Rule</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.grossProfitRule }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.absorbedFixedCosts">Absorbed Fixed Costs</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.absorbedFixedCosts }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.otherExpenses">Other Expenses</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.otherExpenses }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.profitBeforeTax">Profit Before Tax</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.profitBeforeTax }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.estimatedTaxes">Estimated Taxes</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.estimatedTaxes }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.estimatedNetProfit">Estimated Net Profit</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.estimatedNetProfit }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.netMarginPercentage">Net Margin Percentage</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.netMarginPercentage }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.netMarginRule">Net Margin Rule</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.netMarginRule }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.commissionToReceive">Commission To Receive</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.commissionToReceive }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.active">Active</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.active }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ budgetTemplate()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetTemplate.country">Country</span></dt>
+          <dd>
+            @if (budgetTemplate()!.country) {
+              <div>
+                <a [routerLink]="['/country', budgetTemplate()!.country?.id, 'view']">{{ budgetTemplate()!.country?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/budget-template', budgetTemplate()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity ResourceAllocation.
+    -->
+    <changeSet id="20240624143905-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="budget_id"
+                                 baseTableName="resource_allocation"
+                                 constraintName="fk_resource_allocation__budget_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="budget"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="resource_id"
+                                 baseTableName="resource_allocation"
+                                 constraintName="fk_resource_allocation__resource_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="resource"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="budget_template_id"
+                                 baseTableName="resource_allocation"
+                                 constraintName="fk_resource_allocation__budget_template_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="budget_template"
+                                 />
+    </changeSet>
+</databaseChangeLog>

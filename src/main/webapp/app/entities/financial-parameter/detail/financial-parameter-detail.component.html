@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (financialParameter()) {
+      <div>
+        <h2 data-cy="financialParameterDetailsHeading">
+          <span jhiTranslate="quotizoApp.financialParameter.detail.title">Financial Parameter</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.name">Name</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.value">Value</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.value }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.active">Active</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.active }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.mandatory">Mandatory</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.mandatory }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ financialParameter()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.financialParameterType">Financial Parameter Type</span></dt>
+          <dd>
+            @if (financialParameter()!.financialParameterType) {
+              <div>
+                <a [routerLink]="['/financial-parameter-type', financialParameter()!.financialParameterType?.id, 'view']">{{
+                  financialParameter()!.financialParameterType?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.country">Country</span></dt>
+          <dd>
+            @if (financialParameter()!.country) {
+              <div>
+                <a [routerLink]="['/country', financialParameter()!.country?.id, 'view']">{{ financialParameter()!.country?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.administrator">Administrator</span></dt>
+          <dd>
+            @if (financialParameter()!.administrator) {
+              <div>
+                <a [routerLink]="['/users', financialParameter()!.administrator?.id, 'view']">{{
+                  financialParameter()!.administrator?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.financialParameter.roleAuthorized">Role Authorized</span></dt>
+          <dd>
+            @for (roleAuthorized of financialParameter()!.roleAuthorizeds; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/user-role', roleAuthorized.id, 'view']">{{ roleAuthorized?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/financial-parameter', financialParameter()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

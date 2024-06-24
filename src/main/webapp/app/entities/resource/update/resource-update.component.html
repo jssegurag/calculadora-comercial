@@ -1,0 +1,144 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-resource-heading" data-cy="ResourceCreateUpdateHeading" jhiTranslate="quotizoApp.resource.home.createOrEditLabel">
+        Create or edit a Resource
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="quotizoApp.resource.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_salary" jhiTranslate="quotizoApp.resource.salary">Salary</label>
+          <input type="number" class="form-control" name="salary" id="field_salary" data-cy="salary" formControlName="salary" />
+          @if (editForm.get('salary')!.invalid && (editForm.get('salary')!.dirty || editForm.get('salary')!.touched)) {
+            <div>
+              @if (editForm.get('salary')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('salary')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_hourlyRate" jhiTranslate="quotizoApp.resource.hourlyRate">Hourly Rate</label>
+          <input
+            type="number"
+            class="form-control"
+            name="hourlyRate"
+            id="field_hourlyRate"
+            data-cy="hourlyRate"
+            formControlName="hourlyRate"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_active" jhiTranslate="quotizoApp.resource.active">Active</label>
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+          @if (editForm.get('active')!.invalid && (editForm.get('active')!.dirty || editForm.get('active')!.touched)) {
+            <div>
+              @if (editForm.get('active')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdBy" jhiTranslate="quotizoApp.resource.createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdDate" jhiTranslate="quotizoApp.resource.createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedBy" jhiTranslate="quotizoApp.resource.lastModifiedBy">Last Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModifiedDate" jhiTranslate="quotizoApp.resource.lastModifiedDate"
+            >Last Modified Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_lastModifiedDate"
+              data-cy="lastModifiedDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModifiedDate"
+              formControlName="lastModifiedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_position" jhiTranslate="quotizoApp.resource.position">Position</label>
+          <select
+            class="form-control"
+            id="field_position"
+            data-cy="position"
+            name="position"
+            formControlName="position"
+            [compareWith]="comparePosition"
+          >
+            <option [ngValue]="null"></option>
+            @for (positionOption of positionsCollection; track $index) {
+              <option [ngValue]="positionOption">{{ positionOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

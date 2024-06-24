@@ -1,0 +1,35 @@
+{
+  "quotizoApp": {
+    "resourceAllocation": {
+      "home": {
+        "title": "Resource Allocations",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Resource Allocation",
+        "createOrEditLabel": "Crear o editar Resource Allocation",
+        "notFound": "Ningún Resource Allocations encontrado"
+      },
+      "created": "Un nuevo Resource Allocation ha sido creado con el identificador {{ param }}",
+      "updated": "Un Resource Allocation ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Resource Allocation ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Resource Allocation {{ id }}?"
+      },
+      "detail": {
+        "title": "Resource Allocation"
+      },
+      "id": "ID",
+      "assignedHours": "Assigned Hours",
+      "totalCost": "Total Cost",
+      "units": "Units",
+      "capacity": "Capacity",
+      "plannedHours": "Planned Hours",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "budget": "Budget",
+      "resource": "Resource",
+      "budgetTemplate": "Budget Template"
+    }
+  }
+}

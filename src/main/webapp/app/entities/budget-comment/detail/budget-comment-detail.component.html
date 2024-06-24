@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (budgetComment()) {
+      <div>
+        <h2 data-cy="budgetCommentDetailsHeading"><span jhiTranslate="quotizoApp.budgetComment.detail.title">Budget Comment</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ budgetComment()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetComment.content">Content</span></dt>
+          <dd>
+            <span>{{ budgetComment()!.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetComment.createdBy">Created By</span></dt>
+          <dd>
+            <span>{{ budgetComment()!.createdBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetComment.createdDate">Created Date</span></dt>
+          <dd>
+            <span>{{ budgetComment()!.createdDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetComment.lastModifiedBy">Last Modified By</span></dt>
+          <dd>
+            <span>{{ budgetComment()!.lastModifiedBy }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetComment.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>
+            <span>{{ budgetComment()!.lastModifiedDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="quotizoApp.budgetComment.budget">Budget</span></dt>
+          <dd>
+            @if (budgetComment()!.budget) {
+              <div>
+                <a [routerLink]="['/budget', budgetComment()!.budget?.id, 'view']">{{ budgetComment()!.budget?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/budget-comment', budgetComment()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
