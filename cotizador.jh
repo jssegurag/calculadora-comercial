@@ -1,7 +1,30 @@
 //AuthenticationEvent para sincronizar usuarios y roles en jhipster desde keycloak
 //Enviar correo de notificación. -> Bonitasoft. 
 //flujo de aprobaciòn, Opcion de BPM para este proyecto. -> Bonitasoft
-entity User {
+//AuthenticationEvent para sincronizar usuarios y roles en jhipster desde keycloak
+application {
+  config {
+    baseName quotizo,
+    applicationType monolith,
+    packageName com.trycore.quotizo,
+    authenticationType oauth2,
+    databaseType sql,
+    prodDatabaseType postgresql,
+    devDatabaseType postgresql,
+    enableHibernateCache false,
+    enableSwaggerCodegen true,
+    buildTool maven,
+    clientFramework angular,
+    cacheProvider ehcache
+    enableTranslation true,
+    nativeLanguage en,
+    languages [es,en],
+    testFrameworks [cypress]    
+  }
+ entities *
+}
+
+entity Users {
     name String required, // Nombre del usuario
     email String required unique, // Correo electrónico del usuario, único y requerido
     password String required, // Contraseña del usuario
@@ -39,7 +62,6 @@ entity Position {
 }
 
 entity Resource {
-    position Position required, // Cargo del recurso (relación con Position)
     salary BigDecimal required, // Salario del recurso
     hourlyRate BigDecimal, // Valor por hora
     active Boolean required, // Indica si el recurso está activo
@@ -75,10 +97,7 @@ entity Budget {
     netMarginPercentage BigDecimal, // Porcentaje de margen neto
     netMarginRule BigDecimal, // Regla de margen neto
     commissionToReceive BigDecimal, // Comisión a recibir por el comercial
-    country Country required, // Asociación con la entidad Country
-    assignedTo User, // Relación con User para indicar a quién está asignado el presupuesto
     needsApproval Boolean, // Indica si el presupuesto necesita aprobación
-    approvedBy User, // Relación con User para indicar quién aprobó el presupuesto
     approvalDecision String, // Dictamen de aprobación
     approvalDate Instant, // Fecha de aprobación
     approvalTime Instant, // Hora de aprobación
@@ -116,7 +135,6 @@ entity BudgetTemplate {
     netMarginPercentage BigDecimal, // Porcentaje de margen neto
     netMarginRule BigDecimal, // Regla de margen neto
     commissionToReceive BigDecimal, // Comisión a recibir por el comercial
-    country Country required, // Asociación con la entidad Country
     active Boolean required, // Indica si la plantilla está activa
     createdBy String, // Usuario que creó el registro
     createdDate Instant, // Fecha de creación del registro
@@ -141,8 +159,6 @@ entity FinancialParameter {
     value BigDecimal required, // Valor del parámetro financiero
     active Boolean required, // Indica si el parámetro financiero está activo
     mandatory Boolean required, // Indica si el parámetro financiero es obligatorio
-    type FinancialParameterType required, // Tipo del parámetro financiero
-    country Country required, // Asociación con la entidad Country
     createdBy String, // Usuario que creó el registro
     createdDate Instant, // Fecha de creación del registro
     lastModifiedBy String, // Usuario que modificó el registro por última vez
@@ -187,7 +203,6 @@ entity BudgetComment {
 }
 
 entity RuleAssignment {
-    rule DroolsRuleFile required, // Relación con DroolsRuleFile
     entityName String required, // Nombre de la entidad asociada a la regla
     entityId Long required, // ID de la entidad asociada a la regla
     createdBy String, // Usuario que creó el registro
@@ -197,79 +212,40 @@ entity RuleAssignment {
 }
 
 relationship OneToMany {
-    User to Budget { owner } // Un usuario puede tener muchos presupuestos (propietario del presupuesto)
-}
-
-relationship ManyToMany {
-    User to Budget { authorized } // Muchos usuarios pueden estar autorizados a ver/modificar muchos presupuestos
-    UserRole to Budget { roleAuthorized } // Muchos roles pueden estar autorizados a ver/modificar muchos presupuestos
-}
-
-relationship OneToMany {
-    Budget to ResourceAllocation { budget } // Un presupuesto puede tener muchas asignaciones de recursos
+    Users to Budget { userOwner } // Un usuario puede tener muchos presupuestos (propietario del presupuesto)
+    Budget {resourceAllocation} to ResourceAllocation { budget } // Un presupuesto puede tener muchas asignaciones de recursos
     Resource to ResourceAllocation { resource } // Un recurso puede tener muchas asignaciones de presupuestos
-}
+    BudgetTemplate to ResourceAllocation { budgetTemplate } // Una plantilla de presupuesto puede tener muchas asignaciones de recursos preconfigurados
+    Users {financialParameter} to FinancialParameter { administrator } // Un usuario puede administrar muchos parámetros financieros
+    Budget {BudgetComment} to BudgetComment { budget } // Un presupuesto puede tener muchos comentarios
+    DroolsRuleFile to RuleAssignment { droolsRuleFile } // Un archivo de reglas puede tener muchas asignaciones 
+ }
 
 relationship ManyToOne {
-    ResourceAllocation to Budget { budget } // Una asignación de recurso pertenece a un presupuesto
-    ResourceAllocation to Resource { resource } // Una asignación de recurso pertenece a un recurso
-}
-
-relationship OneToMany {
-    BudgetTemplate to ResourceAllocation { allocations } // Una plantilla de presupuesto puede tener muchas asignaciones de recursos preconfigurados
-}
-
-relationship ManyToOne {
-    ResourceAllocation to BudgetTemplate { template } // Una asignación de recurso pertenece a una plantilla de presupuesto
-}
-
-relationship OneToMany {
-    User to FinancialParameter { administrator } // Un usuario puede administrar muchos parámetros financieros
+    
+    FinancialParameter { financialParameterType } to FinancialParameterType {financialParameter } // Un parámetro financiero tiene un tipo
+    FinancialParameter { country } to Country { financialParameter } // Un parámetro financiero está asociado con un país
+    Budget {contry} to Country { budget } // Un presupuesto está asociado con un país
+    BudgetTemplate { country } to Country  {budgetTemplate}// Una plantilla de presupuesto está asociada con un país
+    Budget {userAssignedTo} to Users {assignedTo} // Relación con User para indicar a quién está asignado el presupuesto
+    Budget {userApprovedBy} to Users {approvedBy} // Relación con User para indicar quién aprobó el presupuesto   
 }
 
 relationship ManyToMany {
-    UserRole to FinancialParameter { roleAuthorized } // Muchos roles pueden estar autorizados a ver/modificar muchos parámetros financieros
-}
-
-relationship ManyToOne {
-    FinancialParameter to FinancialParameterType { type } // Un parámetro financiero tiene un tipo
-}
-
-relationship ManyToOne {
-    FinancialParameter to Country { country } // Un parámetro financiero está asociado con un país
-}
-
-relationship ManyToMany {
-    User to UserRole { roles } // Un usuario puede tener muchos roles y un rol puede ser asignado a muchos usuarios
+    Users { userRole } to UserRole { users } // Un usuario puede tener muchos roles y un rol puede ser asignado a muchos usuarios
     UserRole to Permission { permissions } // Muchos roles pueden tener muchos permisos
+    Users { budgetAuthorized } to Budget { authorized } // Muchos usuarios pueden estar autorizados a ver/modificar muchos presupuestos
+    UserRole{ budget } to Budget { roleAuthorized } // Muchos roles pueden estar autorizados a ver/modificar muchos presupuestos
+    UserRole { financialParameter } to FinancialParameter { roleAuthorized } // Muchos roles pueden estar autorizados a ver/modificar muchos parámetros financieros
+    
 }
-
-relationship ManyToOne {
-    Budget to Country { country } // Un presupuesto está asociado con un país
-}
-
-relationship ManyToOne {
-    BudgetTemplate to Country { country } // Una plantilla de presupuesto está asociada con un país
-}
-
-relationship OneToMany {
-    Budget to BudgetComment { comments } // Un presupuesto puede tener muchos comentarios
-}
-
-relationship ManyToOne {
-    BudgetComment to Budget { budget } // Un comentario pertenece a un presupuesto
-}
-
-relationship OneToMany {
-    DroolsRuleFile to RuleAssignment { assignments } // Un archivo de reglas puede tener muchas asignaciones
-}
-
-relationship ManyToOne {
-    RuleAssignment to DroolsRuleFile { rule } // Una asignación pertenece a un archivo de reglas
+relationship OneToOne {
+    Resource {position} to Position { resource } // Un usuario puede tener muchos roles y un rol puede ser asignado a muchos usuarios
+   
 }
 
 // Configuraciones adicionales
-service User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with serviceClass
-dto User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with mapstruct
-paginate User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with pagination
-filter User, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment
+service Users, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment, Permission with serviceClass
+dto Users, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment, Permission with mapstruct
+paginate Users, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment with pagination
+filter Users, Resource, Budget, BudgetTemplate, ResourceAllocation, FinancialParameter, UserRole, FinancialParameterType, Position, DroolsRuleFile, Country, BudgetComment, RuleAssignment
